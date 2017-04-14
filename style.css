@@ -1,0 +1,73 @@
+header {
+    height: 50px;
+    background-color: whitesmoke;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    float:left;
+}
+
+body {
+    margin: 0;
+    font-family: Leelawadee;
+}
+
+.vertical {
+    background-color: white;
+    width: 25%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+#content {
+    height: calc(100vh - 50px);
+}
+
+#logo {
+    width: 300px;
+    height: 36px;
+    position: absolute;
+    margin: 7px 0px;
+}
+
+.toggle {
+    width: 25%;
+    float: left;
+    height: inherit;
+}
+
+.toggleButton {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+#buttons {
+    width: 300px;
+    height: 50px;
+    margin: auto;
+}
+
+#logoText {
+    height: 20px;
+    margin: auto;
+    font-size: 200%;
+    font-weight: bold;
+}
+
+#clearBoth {
+    clear: both;
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    margin: auto;
+}
+
+.divForInput {
+    width: 98%;
+    height: 98%;
+}

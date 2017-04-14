@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.css">
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui/jquery-ui.js"></script>
+    <style type="text/css">
+
+        header {
+            height: 50px;
+            background-color: whitesmoke;
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            float:left;
+        }
+
+        body {
+            margin: 0;
+            font-family: Leelawadee;
+        }
+
+        .vertical {
+            background-color: white;
+            width: 25%;
+            height: 100%;
+            position: relative;
+            float: left;
+        }
+
+        #content {
+            height: calc(100vh - 50px);
+        }
+
+        #logo {
+            width: 300px;
+            height: 36px;
+            position: absolute;
+            margin: 7px 0px;
+        }
+
+        .toggle {
+            width: 25%;
+            float: left;
+            height: inherit;
+        }
+
+        .toggleButton {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+
+        #buttons {
+            width: 300px;
+            height: 50px;
+            margin: auto;
+        }
+
+        #logoText {
+            height: 20px;
+            margin: auto;
+            font-size: 200%;
+            font-weight: bold;
+        }
+
+        #clearBoth {
+            clear: both;
+        }
+
+        .input {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            margin: auto;
+        }
+
+        .divForInput {
+            width: 98%;
+            height: 98%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div id="logo">
+            <p id="logoText">Hello World!</p>
+        </div>
+
+        <div id="buttons">
+            <div class="toggle">
+                <button class="toggleButton" id="htmlButton">HTML</button>
+            </div>
+            <div class="toggle">
+                <button class="toggleButton" id="cssButton">CSS</button>
+            </div>
+            <div class="toggle">
+                <button class="toggleButton" id="jsButton">JavaScript</button>
+            </div>
+            <div class="toggle">
+                <button class="toggleButton" id="pageButton">Output</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="clearBoth"></div>
+
+    <div id="content">
+
+        <div class="vertical" id="html">
+            <div class="divForInput">
+                <textarea class="input" id="htmlInput"><h1>Hellow World</h1></textarea>
+            </div>
+        </div>
+
+        <div class="vertical" id="css">
+            <div class="divForInput">
+                <textarea class="input" id="cssInput"></textarea>
+            </div>
+        </div>
+        <div class="vertical" id="js">
+            <div class="divForInput">
+                <textarea class="input" id="jsInput"></textarea>
+            </div>
+        </div>
+        <div class="vertical" id="page">
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var html = '<h1>Hellow World</h1>';
+        var css = '';
+        var js = '';
+
+        var number = 4;
+        $('#htmlButton').click(function () {
+            if ($('#html').css('display') == 'block' && number > 1) {
+                $('#html').css('display', 'none');
+            } else {
+                $('#html').css('display', 'block');
+            }
+        });
+        $('#cssButton').click(function () {
+            if ($('#css').css('display') == 'block' && number > 1) {
+                $('#css').css('display', 'none');
+            } else {
+                $('#css').css('display', 'block');
+            }
+        });
+        $('#jsButton').click(function () {
+            if ($('#js').css('display') == 'block' && number > 1) {
+                $('#js').css('display', 'none');
+            } else {
+                $('#js').css('display', 'block');
+            }
+        });
+        $('#pageButton').click(function () {
+            if ($('#page').css('display') == 'block' && number > 1) {
+                $('#page').css('display', 'none');
+            } else {
+                $('#page').css('display', 'block');
+            }
+        });
+
+        var range = ['#html','#css','#js','#page'];
+        var widthRange = {4:'25%',3:'33.33333%',2:'50%',1:'100%'};
+        $('.toggleButton').click(function () {
+            number = 4;
+            for (var i = 0; i < 4; i++) {
+                if($(range[i]).css('display') != 'block') {
+                    number--;
+                }
+            }
+            $('.vertical').css('width', widthRange[number]);
+        });
+
+        function pageCreate() {
+            html = $('#htmlInput').val();
+            css = $('#cssInput').val();
+            js = $('#jsInput').val();
+            $('#page').html(
+                '<html>' +
+                '<head>' +
+                    '<style>' +
+                        css +
+                    '</style>' +
+                '</head>' +
+                '<body>' +
+                    html +
+                '</body>' +
+                '</html>'
+            )
+        }
+        pageCreate();
+
+        $('.input').keyup(function () {
+            pageCreate();
+        });
+
+    </script>
+
+</body>
+</html>
