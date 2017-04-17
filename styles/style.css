@@ -1,3 +1,9 @@
+
+body {
+    margin: 0;
+    font-family: Leelawadee;
+}
+
 header {
     height: 50px;
     background-color: whitesmoke;
@@ -5,11 +11,6 @@ header {
     padding: 0px;
     width: 100%;
     float: left;
-}
-
-body {
-    margin: 0;
-    font-family: Leelawadee;
 }
 
 .vertical {
