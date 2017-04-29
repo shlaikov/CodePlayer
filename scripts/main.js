@@ -71,8 +71,8 @@ var JS_Editor = CodeMirror.fromTextArea(document.getElementById("jsInput"), {
 
 function pageCreate() {
     var html = HTML_Editor.getValue();
-    var css = $('#cssInput').val();
-    var js = $('#jsInput').val();
+    var css = CSS_Editor.getValue();
+    var js = JS_Editor.getValue();
     $('#page').html(
         '<html>' +
         '<head>' +
