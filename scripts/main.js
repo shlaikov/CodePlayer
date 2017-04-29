@@ -1,7 +1,3 @@
-var html = '<h1>Hellow World</h1>';
-var css = '';
-var js = '';
-
 var number = 4;
 
 $('#htmlButton').click(function () {
@@ -33,9 +29,8 @@ $('#pageButton').click(function () {
     }
 });
 
-var range = ['#html', '#css', '#js', '#page'];
+var range = ['#html', '#css', '#js'];
 var widthRange = {
-    4: '25%',
     3: '33.33333%',
     2: '50%',
     1: '100%'
@@ -50,10 +45,34 @@ $('.toggleButton').click(function () {
     $('.vertical').css('width', widthRange[number]);
 });
 
+var HTML_Editor = CodeMirror.fromTextArea(document.getElementById("htmlInput"), {
+    lineNumbers: true,
+    mode: "htmlmixed",
+    indentUnit: 4,
+    indentWithTabs: true,
+    theme: "dracula"
+});
+
+var CSS_Editor = CodeMirror.fromTextArea(document.getElementById("cssInput"), {
+    lineNumbers: true,
+    value: 'h1 { color: black; font-size:30pt;}',
+    matchBrackets: true,
+    mode: "css",
+    theme: "dracula"
+});
+
+var JS_Editor = CodeMirror.fromTextArea(document.getElementById("jsInput"), {
+    lineNumbers: true,
+    value: "function myScript(){return 100;}\n",
+    matchBrackets: true,
+    mode: "javascript",
+    theme: "dracula"
+});
+
 function pageCreate() {
-    html = $('#htmlInput').val();
-    css = $('#cssInput').val();
-    js = $('#jsInput').val();
+    var html = HTML_Editor.getValue();
+    var css = $('#cssInput').val();
+    var js = $('#jsInput').val();
     $('#page').html(
         '<html>' +
         '<head>' +
