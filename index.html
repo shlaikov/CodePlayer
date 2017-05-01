@@ -7,7 +7,7 @@
     <meta name="description" content="JavaScript engine for preview your highlighted code">
     <title>CodePlayer</title>
     <link rel="manifest" href="manifest.json">
-    <!-- Fallback to homescreen for Chrome <39 on Android -->
+
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Portfolio">
     <meta name="keywords" content="Алексей Шлайков, веб-разработчик, личный сайт, портфолио, Alexey Shlaikov, web-developer, python, django, создание сайтов">
@@ -17,6 +17,7 @@
     <script src="addon/selection/active-line.js"></script>
     <script src="addon/edit/matchbrackets.js"></script>
     <script src="addon/mode/multiplex.js"></script>
+    <script src="addon/display/fullscreen.js"></script>
 
     <link rel="stylesheet" href="styles/jquery-ui.min.css">
     <link rel="stylesheet" href="styles/font-awesome.min.css">
@@ -54,9 +55,6 @@
             <div class="toggle">
                 <button class="toggleButton" id="jsButton"><i class="fa fa-code" aria-hidden="true"></i><br>JavaScript</button>
             </div>
-            <div class="toggle">
-                <button class="toggleButton" id="pageButton">Результат</button>
-            </div>
         </div>
     </header>
     <div id="clearBoth"></div>
@@ -64,24 +62,43 @@
         <div id="content-code">
             <div class="vertical-row" id="html">
                 <div class="divForInput">
-                    <form><textarea class="html input" id="htmlInput" name="code"><h1>Hello world!</h1></textarea></form>
+                    <form><textarea class="html input" id="htmlInput" name="code"><h1>Hello world!</h1>
+<p>Canvas pane goes here:</p>
+<canvas id=pane width=300 height=300></canvas></textarea></form>
                 </div>
             </div>
             <div class="vertical-row" id="css">
                 <div class="divForInput">
-                    <form><textarea class="input" id="cssInput" name="code">h1 { color: black; font-size:30pt;}</textarea></form>
+                    <form><textarea class="input" id="cssInput" name="code">h1 {
+    color: black;
+    font-size:30pt;
+}
+
+p {
+    font-family: monospace;
+}</textarea></form>
                 </div>
             </div>
             <div class="vertical-row" id="js">
                 <div class="divForInput">
-                    <form><textarea class="input" id="jsInput" name="code"></textarea></form>
+                    <form><textarea class="input" id="jsInput" name="code">var canvas = document.getElementById('pane');
+var context = canvas.getContext('2d');
+
+context.fillStyle = 'rgb(250,0,0)';
+context.fillRect(10, 10, 55, 50);
+
+context.fillStyle = 'rgba(0, 0, 250, 0.5)';
+context.fillRect(30, 30, 55, 50);</textarea></form>
                 </div>
             </div>
         </div>
         <div id="content-preview">
-            <div class="horizontal-row" id="page"></div>
+            <div class="horizontal-row" id="page">
+                <iframe id=preview></iframe>
+            </div>
         </div>
     </div>
+
 
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/jquery-ui.min.js"></script>

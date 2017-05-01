@@ -1,4 +1,4 @@
-var number = 4;
+var number = 3;
 
 $('#htmlButton').click(function () {
     if ($('#html').css('display') == 'block' && number > 1) {
@@ -21,13 +21,7 @@ $('#jsButton').click(function () {
         $('#js').css('display', 'block');
     }
 });
-$('#pageButton').click(function () {
-    if ($('#page').css('display') == 'block' && number > 1) {
-        $('#page').css('display', 'none');
-    } else {
-        $('#page').css('display', 'block');
-    }
-});
+
 
 var range = ['#html', '#css', '#js'];
 var widthRange = {
@@ -36,8 +30,8 @@ var widthRange = {
     1: '100%'
 };
 $('.toggleButton').click(function () {
-    number = 4;
-    for (var i = 0; i < 4; i++) {
+    number = 3;
+    for (var i = 0; i < 3; i++) {
         if ($(range[i]).css('display') != 'block') {
             number--;
         }
@@ -50,6 +44,14 @@ var HTML_Editor = CodeMirror.fromTextArea(document.getElementById("htmlInput"), 
     mode: "htmlmixed",
     indentUnit: 4,
     indentWithTabs: true,
+    extraKeys: {
+        "F11": function (cm) {
+            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        },
+        "Esc": function (cm) {
+            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        }
+    },
     theme: "dracula"
 });
 
@@ -58,36 +60,68 @@ var CSS_Editor = CodeMirror.fromTextArea(document.getElementById("cssInput"), {
     value: 'h1 { color: black; font-size:30pt;}',
     matchBrackets: true,
     mode: "css",
+    extraKeys: {
+        "F11": function (cm) {
+            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        },
+        "Esc": function (cm) {
+            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        }
+    },
     theme: "dracula"
 });
 
 var JS_Editor = CodeMirror.fromTextArea(document.getElementById("jsInput"), {
-    lineNumbers: true,
     value: "function myScript(){return 100;}\n",
+    lineNumbers: true,
     matchBrackets: true,
     mode: "javascript",
+    extraKeys: {
+        "F11": function (cm) {
+            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+        },
+        "Esc": function (cm) {
+            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+        }
+    },
     theme: "dracula"
 });
 
+var delay;
+HTML_Editor.on("change", function () {
+    clearTimeout(delay);
+    delay = setTimeout(updatePreview, 300);
+});
+
+function updatePreview() {
+    var previewFrame = document.getElementById('preview');
+    var preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
+
+    preview.open();
+    preview.write(pageCreate());
+    preview.close();
+}
+
 function pageCreate() {
-    var html = HTML_Editor.getValue();
-    var css = CSS_Editor.getValue();
-    var js = JS_Editor.getValue();
-    $('#page').html(
+    var htmlFrame = HTML_Editor.getValue();
+    var styleFrame = CSS_Editor.getValue();
+    var scriptFrame = JS_Editor.getValue();
+
+    var page = 
         '<html>' +
         '<head>' +
         '<style>' +
-        css +
+        styleFrame +
         '</style>' +
         '</head>' +
         '<body>' +
-        html +
+        htmlFrame +
+        '<script>' +
+        scriptFrame +
+        '</script>' +
         '</body>' +
-        '</html>'
-    )
+        '</html>';
+    return page;
 }
-pageCreate();
 
-$('.input').keyup(function () {
-    pageCreate();
-});
+setTimeout(updatePreview, 300);
