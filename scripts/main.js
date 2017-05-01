@@ -44,14 +44,6 @@ var HTML_Editor = CodeMirror.fromTextArea(document.getElementById("htmlInput"), 
     mode: "htmlmixed",
     indentUnit: 4,
     indentWithTabs: true,
-    extraKeys: {
-        "F11": function (cm) {
-            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-        },
-        "Esc": function (cm) {
-            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-        }
-    },
     theme: "dracula"
 });
 
@@ -60,14 +52,6 @@ var CSS_Editor = CodeMirror.fromTextArea(document.getElementById("cssInput"), {
     value: 'h1 { color: black; font-size:30pt;}',
     matchBrackets: true,
     mode: "css",
-    extraKeys: {
-        "F11": function (cm) {
-            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-        },
-        "Esc": function (cm) {
-            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-        }
-    },
     theme: "dracula"
 });
 
@@ -76,31 +60,23 @@ var JS_Editor = CodeMirror.fromTextArea(document.getElementById("jsInput"), {
     lineNumbers: true,
     matchBrackets: true,
     mode: "javascript",
-    extraKeys: {
-        "F11": function (cm) {
-            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-        },
-        "Esc": function (cm) {
-            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
-        }
-    },
     theme: "dracula"
 });
 
 var delay;
+
 HTML_Editor.on("change", function () {
     clearTimeout(delay);
     delay = setTimeout(updatePreview, 300);
 });
-
-function updatePreview() {
-    var previewFrame = document.getElementById('preview');
-    var preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
-
-    preview.open();
-    preview.write(pageCreate());
-    preview.close();
-}
+CSS_Editor.on("change", function () {
+    clearTimeout(delay);
+    delay = setTimeout(updatePreview, 300);
+});
+JS_Editor.on("change", function () {
+    clearTimeout(delay);
+    delay = setTimeout(updatePreview, 300);
+});
 
 function pageCreate() {
     var htmlFrame = HTML_Editor.getValue();
@@ -124,4 +100,12 @@ function pageCreate() {
     return page;
 }
 
+function updatePreview() {
+    var previewFrame = document.getElementById('preview');
+    var preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
+
+    preview.open();
+    preview.write(pageCreate());
+    preview.close();
+}
 setTimeout(updatePreview, 300);
